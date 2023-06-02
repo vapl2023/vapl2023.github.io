@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"module": "commonjs",
+		"removeComments": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "es6"
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"]
+}
