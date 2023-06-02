@@ -6,6 +6,8 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
+const states: Record<string, Record<string, number>> = {};
+
 io.on("connection", socket => {
 	console.log("user connected");
 
@@ -13,8 +15,16 @@ io.on("connection", socket => {
 		console.log("user disconnected");
 	});
 
-	socket.on("ping", () => {
-		console.log("ping!");
+	socket.on("join", room => {
+		if (!states[room]) states[room] = {};
+
+		states[room][socket.id] = 0;
+		console.table(states);
+	});
+
+	socket.on("click", room => {
+		states[room][socket.id]++;
+		console.table(states);
 	});
 });
 
