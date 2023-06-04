@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"esModuleInterop": true,
+		"lib": ["dom", "esnext"],
 		"module": "commonjs",
 		"removeComments": true,
 		"skipLibCheck": true,
