@@ -27,18 +27,20 @@ io.on("connection", socket => {
 	});
 
 	socket.on("join", ({ name, room }: { name: string; room: string }) => {
+		if (!states[room]) {
+			socket.emit("join_noroom");
+			return;
+		}
 		if (Object.values(names).indexOf(name) != -1) {
-			socket.emit("reject");
+			socket.emit("join_reject");
 			return;
 		}
 		names[socket.id] = name;
 
-		if (!states[room]) states[room] = {};
-
 		states[room][name] = 0;
 		socket.join(room);
 
-		socket.emit("accept");
+		socket.emit("join_accept");
 		socket.emit("state", states[room]);
 	});
 
@@ -51,7 +53,7 @@ io.on("connection", socket => {
 		const random: string[] = [];
 		const tmp = Object.keys(states[room]);
 		tmp.splice(tmp.indexOf(names[socket.id]), 1);
-		let n = Math.floor(tmp.length / 2);
+		let n = Math.ceil(tmp.length / 2);
 
 		while (n--) {
 			const i = Math.floor(Math.random() * tmp.length);
@@ -63,6 +65,31 @@ io.on("connection", socket => {
 			states[room][user] -= BULLY_TAKE;
 			if (states[room][user] < 0) states[room][user] = 0;
 		}
+	});
+
+	socket.on("host", (room: string) => {
+		if (states[room]) {
+			socket.emit("host_reject");
+			return;
+		}
+
+		states[room] = {};
+		socket.join(room);
+
+		socket.emit("host_accept");
+	});
+
+	socket.on("start", (room: string) => {
+		io.to(room).emit("3");
+		setTimeout(() => {
+			io.to(room).emit("2");
+		}, 1000);
+		setTimeout(() => {
+			io.to(room).emit("1");
+		}, 2000);
+		setTimeout(() => {
+			io.to(room).emit("go!");
+		}, 3000);
 	});
 });
 
