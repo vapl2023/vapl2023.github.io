@@ -6,21 +6,35 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title>VAPL2023</title>
 		<script src="index.js" defer></script>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
 		<div id="lobby">
-			<input id="name" placeholder="Display name" />
-			<input id="room" placeholder="Room ID" />
-			<button id="join">Join</button>
+			<div id="lobby-container">
+				<input id="name" placeholder="Display name" />
+				<input id="room" placeholder="Room ID" />
+				<button id="join">Join</button>
+			</div>
 		</div>
 		<div id="game">
 			<div id="scoreboard"></div>
-			<button id="click">Click</button>
-			<button id="bully">Bully</button>
+			<div id="button-container">
+				<button id="click">+1</button>
+				<button id="bully">+4</button>
+			</div>
 		</div>
 		<div id="host">
-			<button id="start">Start!</button>
 			<div id="host-scoreboard"></div>
+		</div>
+		<div id="ready">
+			<button id="start">Start!</button>
+			<div id="waiting">Waiting to start...</div>
+		</div>
+		<div id="countdown">
+			<div id="countdown-3">3</div>
+			<div id="countdown-2">2</div>
+			<div id="countdown-1">1</div>
+			<div id="countdown-go">Go!</div>
 		</div>
 	</body>
 </html>

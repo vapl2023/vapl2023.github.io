@@ -15,9 +15,15 @@ io.on("connection", socket => {
 	console.log("user connected");
 
 	socket.on("disconnecting", () => {
-		socket.rooms.forEach(room => {
-			if (states[room]) delete states[room][names[socket.id]];
-		});
+		if (names[socket.id]) {
+			socket.rooms.forEach(room => {
+				if (states[room]) delete states[room][names[socket.id]];
+			});
+		} else {
+			socket.rooms.forEach(room => {
+				if (states[room]) delete states[room];
+			});
+		}
 
 		delete names[socket.id];
 	});
@@ -80,16 +86,7 @@ io.on("connection", socket => {
 	});
 
 	socket.on("start", (room: string) => {
-		io.to(room).emit("3");
-		setTimeout(() => {
-			io.to(room).emit("2");
-		}, 1000);
-		setTimeout(() => {
-			io.to(room).emit("1");
-		}, 2000);
-		setTimeout(() => {
-			io.to(room).emit("go!");
-		}, 3000);
+		io.to(room).emit("countdown");
 	});
 });
 
