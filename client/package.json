@@ -2,7 +2,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "nodemon --watch src --ext ts --exec bun build.js",
-		"publish": "gh-pages -d public"
+		"deploy": "gh-pages -d public"
 	},
 	"dependencies": { "socket.io-client": "^4.6.2" },
 	"devDependencies": {
