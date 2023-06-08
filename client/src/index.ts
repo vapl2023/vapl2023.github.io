@@ -4,11 +4,17 @@ const nameInput = document.getElementById("name") as HTMLInputElement;
 const roomInput = document.getElementById("room") as HTMLInputElement;
 const joinButton = document.getElementById("join") as HTMLButtonElement;
 const scoreboadContainer = document.getElementById("scoreboard") as HTMLElement;
+const buttonContainer = document.getElementById(
+	"button-container"
+) as HTMLElement;
 const clickButton = document.getElementById("click") as HTMLButtonElement;
 const bullyButton = document.getElementById("bully") as HTMLButtonElement;
+const timeText = document.getElementById("time") as HTMLElement;
+const scoreText = document.getElementById("score") as HTMLElement;
 const hostScoreboardContainer = document.getElementById(
 	"host-scoreboard"
 ) as HTMLElement;
+const hostTimeText = document.getElementById("host-time") as HTMLElement;
 const startButton = document.getElementById("start") as HTMLButtonElement;
 const waiting = document.getElementById("waiting") as HTMLElement;
 const countdown3 = document.getElementById("countdown-3") as HTMLElement;
@@ -44,9 +50,19 @@ if (host) socket.emit("host", host);
 
 let name = "";
 let room = "";
+let playing = false;
+let time = 60;
 
 joinButton.onclick = () => {
-	if (!nameInput.value || !roomInput.value || isHosting) return;
+	if (isHosting) return;
+	if (!nameInput.value || nameInput.value.length > 20) {
+		alert("Name must be between 1 and 20 characters long");
+		return;
+	}
+	if (!roomInput.value) {
+		alert("Please provide a room code");
+		return;
+	}
 
 	socket.emit("join", { name: nameInput.value, room: roomInput.value });
 	name = nameInput.value;
@@ -54,12 +70,14 @@ joinButton.onclick = () => {
 };
 
 clickButton.onclick = () => {
-	if (isHosting) return;
+	if (isHosting || !playing) return;
 
 	socket.emit("click", room);
 };
 
 bullyButton.onclick = () => {
+	if (isHosting || !playing) return;
+
 	socket.emit("bully", room);
 	bullyButton.disabled = true;
 
@@ -82,7 +100,7 @@ socket.on("host_accept", () => {
 });
 
 socket.on("host_reject", () => {
-	alert("room is already being hosted");
+	alert("Room is already being hosted");
 });
 
 socket.on("join_accept", () => {
@@ -113,9 +131,16 @@ socket.on("state", (state: Record<string, number>) => {
 			}))
 			.sort((a, b) => b.score - a.score);
 
+		let first = true;
 		for (const { user, score } of scores) {
 			const card = document.createElement("div");
-			card.innerText = `${user} | ${score}`;
+			card.innerText = `${user}: ${score}`;
+			card.classList.add("card");
+
+			if (first) {
+				card.style.color = "#fab387";
+				first = false;
+			}
 
 			hostScoreboardContainer.appendChild(card);
 		}
@@ -130,14 +155,35 @@ socket.on("state", (state: Record<string, number>) => {
 			}))
 			.sort((a, b) => b.score - a.score);
 
+		let first = true;
 		for (const { user, score } of scores) {
 			const card = document.createElement("div");
-			card.innerText = `${user} | ${score}`;
+			card.innerText = `${user}: ${score}`;
+			card.classList.add("card");
 
-			if (user === name) card.style.color = "blue";
+			if (first) {
+				card.style.color = "#fab387";
+				first = false;
+			}
+			if (user === name) {
+				card.style.color = "#a6e3a1";
+				scoreText.innerText = `Score: ${score}`;
+			}
 
 			scoreboadContainer.appendChild(card);
 		}
+	}
+
+	if (time > 0 && playing) {
+		time--;
+		(isHosting
+			? hostTimeText
+			: timeText
+		).innerText = `Time: ${time.toString()}`;
+	} else if (playing) {
+		buttonContainer.style.display = "none";
+		(isHosting ? hostTimeText : timeText).innerText = "Game over!";
+		playing = false;
 	}
 });
 
@@ -162,6 +208,7 @@ socket.on("countdown", () => {
 
 	setTimeout(() => {
 		countdownGo.style.display = "none";
+		playing = true;
 		setView(isHosting ? "host" : "game");
 	}, 4000);
 });
