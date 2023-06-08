@@ -2359,7 +2359,7 @@ Object.assign(lookup2, {
 });
 
 // src/lib/config.ts
-var SERVER_URL = "http://95.145.176.117:8080";
+var SERVER_URL = "http://98.145.176.117:8080";
 
 // src/lib/client.ts
 var socket4 = lookup2(SERVER_URL, { transports: ["websocket"] });
