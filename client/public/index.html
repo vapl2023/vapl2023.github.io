@@ -7,6 +7,10 @@
 		<title>VAPL2023</title>
 		<script src="index.js" defer></script>
 		<link rel="stylesheet" href="styles.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<div id="lobby">
@@ -18,17 +22,22 @@
 			</div>
 		</div>
 		<div id="game">
+			<div class="bar">
+				<div id="time">Time: 60</div>
+				<div id="spacer"></div>
+				<div id="score">Score: 0</div>
+			</div>
 			<div id="scoreboard"></div>
 			<div id="button-container">
 				<button id="click">+1</button>
 				<button id="bully">+4</button>
 			</div>
-			<div id="time">Time: 60</div>
-			<div id="score">Score: 0</div>
 		</div>
 		<div id="host">
+			<div class="bar">
+				<div id="host-time">Time: 60</div>
+			</div>
 			<div id="host-scoreboard"></div>
-			<div id="host-time">Time: 60</div>
 		</div>
 		<div id="ready">
 			<button id="start">Start!</button>
