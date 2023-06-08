@@ -3,6 +3,7 @@ body {
 	height: 100vh;
 	background-color: #1e1e2e;
 	color: #1e1e2e;
+	font-family: "Rubik", sans-serif;
 }
 
 input {
@@ -53,6 +54,11 @@ button {
 	color: #cdd6f4;
 }
 
+#name,
+#room {
+	width: calc(100% - 16px);
+}
+
 #join {
 	padding: 8px;
 	width: 100%;
@@ -90,40 +96,44 @@ button {
 	color: #1e1e2e;
 }
 
+.bar {
+	position: fixed;
+	width: 100vw;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	background-color: #313244;
+}
+
 #time,
 #host-time,
 #score {
-	width: 128px;
-	height: 64px;
-	border-radius: 8px;
-	background-color: #313244;
-	text-align: center;
-	line-height: 64px;
+	padding-left: 8px;
+	padding-right: 8px;
 	font-size: 18px;
 	color: #74c7ec;
 }
 
-#time,
-#host-time {
-	position: fixed;
-	right: 32px;
-	bottom: 32px;
-}
-
-#score {
-	position: fixed;
-	left: 32px;
-	bottom: 32px;
+#spacer {
+	flex-grow: 1;
 }
 
 #scoreboard,
 #host-scoreboard {
+	position: fixed;
+	top: 30px;
 	width: 100vw;
-	height: 100vh;
 }
 
 #scoreboard {
-	height: 80vh;
+	height: calc(100vh - 30px - 128px);
+}
+
+#host-scoreboard {
+	height: calc(100vh - 30px);
+}
+
+#scoreboard {
 	overflow-y: scroll;
 }
 
