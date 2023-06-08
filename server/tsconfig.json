@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"esModuleInterop": true,
 		"module": "commonjs",
+		"outDir": "dist",
 		"removeComments": true,
 		"skipLibCheck": true,
 		"strict": true,
