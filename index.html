@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>VAPL2023</title>
+		<script src="index.js" defer></script>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div id="lobby">
+			<div id="lobby-container">
+				<div id="title">VAPL Game</div>
+				<input id="name" placeholder="Display name" />
+				<input id="room" placeholder="Room ID" />
+				<button id="join">Join</button>
+			</div>
+		</div>
+		<div id="game">
+			<div id="scoreboard"></div>
+			<div id="button-container">
+				<button id="click">+1</button>
+				<button id="bully">+4</button>
+			</div>
+			<div id="time">Time: 60</div>
+			<div id="score">Score: 0</div>
+		</div>
+		<div id="host">
+			<div id="host-scoreboard"></div>
+			<div id="host-time">Time: 60</div>
+		</div>
+		<div id="ready">
+			<button id="start">Start!</button>
+			<div id="waiting">Waiting to start...</div>
+		</div>
+		<div id="countdown">
+			<div id="countdown-3">3</div>
+			<div id="countdown-2">2</div>
+			<div id="countdown-1">1</div>
+			<div id="countdown-go">Go!</div>
+		</div>
+	</body>
+</html>
