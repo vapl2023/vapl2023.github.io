@@ -2359,7 +2359,7 @@ Object.assign(lookup2, {
 });
 
 // src/lib/config.ts
-var SERVER_URL = "https://vapl.up.railway.app";
+var SERVER_URL = "https://vapl.onrender.com";
 
 // src/lib/client.ts
 var socket4 = lookup2(SERVER_URL);
