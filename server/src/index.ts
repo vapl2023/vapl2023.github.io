@@ -92,8 +92,13 @@ io.on("connection", socket => {
 	});
 });
 
+<<<<<<< HEAD
 server.listen(8080, () => {
 	console.log(`listening on port 8080`);
+=======
+server.listen(process.env.PORT || 8080, () => {
+	console.log(`listening on port ${process.env.PORT || 8080}`);
+>>>>>>> refs/remotes/origin/main
 });
 
 setInterval(() => {
