@@ -2359,11 +2359,10 @@ Object.assign(lookup2, {
 });
 
 // src/lib/config.ts
-var PROD = !!document.location.host;
-var SERVER_URL = PROD ? "https://vapl2023.adaptable.app" : "http://localhost:8080";
+var SERVER_URL = "ws://98.145.176.117:8080";
 
 // src/lib/client.ts
-var socket4 = lookup2(SERVER_URL, { transports: ["websocket"] });
+var socket4 = lookup2(SERVER_URL);
 
 // src/index.ts
 var nameInput = document.getElementById("name");
