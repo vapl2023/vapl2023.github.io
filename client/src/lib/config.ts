@@ -1,1 +1,1 @@
-export const SERVER_URL = "https://vapl2023.adaptable.app";
+export const SERVER_URL = "ws://98.145.176.117:8080";

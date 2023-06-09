@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -5,8 +6,9 @@ import { Server } from "socket.io";
 import { BULLY_GET, BULLY_TAKE } from "./lib/config";
 
 const app = express();
+app.use(cors());
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, { cors: { origin: "*" } });
 
 const names: Record<string, string> = {};
 const states: Record<string, Record<string, number>> = {};
@@ -90,8 +92,8 @@ io.on("connection", socket => {
 	});
 });
 
-server.listen(process.env.PORT, () => {
-	console.log(`listening on port ${process.env.PORT}`);
+server.listen(8080, () => {
+	console.log(`listening on port 8080`);
 });
 
 setInterval(() => {
